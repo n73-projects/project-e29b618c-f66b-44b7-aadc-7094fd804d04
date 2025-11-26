@@ -8,7 +8,7 @@ interface SelectedElement {
 }
 
 function App() {
-  const [url, setUrl] = useState('https://example.com');
+  const [url, setUrl] = useState(window.location.origin + '/test-page.html');
   const [iframeKey, setIframeKey] = useState(0);
   const [selectedElement, setSelectedElement] = useState<SelectedElement | null>(null);
   const [editingText, setEditingText] = useState('');
@@ -42,18 +42,28 @@ function App() {
         (function() {
           let selectedEl = null;
           let originalOutline = '';
+          let originalBackground = '';
+          let hoverEl = null;
+          let originalHoverOutline = '';
 
           function selectElement(el) {
             // Remove previous selection
             if (selectedEl) {
               selectedEl.style.outline = originalOutline;
+              selectedEl.style.backgroundColor = originalBackground;
               selectedEl.contentEditable = 'false';
             }
 
             selectedEl = el;
             originalOutline = el.style.outline;
-            el.style.outline = '2px solid #3b82f6';
+            originalBackground = el.style.backgroundColor;
+
+            // More prominent selection styling
+            el.style.outline = '3px solid #2563eb';
+            el.style.outlineOffset = '2px';
+            el.style.backgroundColor = 'rgba(37, 99, 235, 0.1)';
             el.contentEditable = 'true';
+            el.focus();
 
             // Get element path
             const path = getElementPath(el);
@@ -81,10 +91,39 @@ function App() {
             return path.join(' > ');
           }
 
+          // Hover effect for better UX
+          document.addEventListener('mouseover', function(e) {
+            if (e.target !== selectedEl && e.target !== hoverEl) {
+              // Remove previous hover
+              if (hoverEl && hoverEl !== selectedEl) {
+                hoverEl.style.outline = originalHoverOutline;
+              }
+
+              hoverEl = e.target;
+              originalHoverOutline = e.target.style.outline;
+              e.target.style.outline = '2px dashed #64748b';
+              e.target.style.outlineOffset = '1px';
+            }
+          });
+
+          document.addEventListener('mouseout', function(e) {
+            if (hoverEl && hoverEl !== selectedEl) {
+              hoverEl.style.outline = originalHoverOutline;
+              hoverEl = null;
+            }
+          });
+
           // Click handler
           document.addEventListener('click', function(e) {
             e.preventDefault();
             e.stopPropagation();
+
+            // Remove hover effect when clicking
+            if (hoverEl) {
+              hoverEl.style.outline = originalHoverOutline;
+              hoverEl = null;
+            }
+
             selectElement(e.target);
           });
 
@@ -92,6 +131,7 @@ function App() {
           document.addEventListener('keydown', function(e) {
             if (e.key === 'Escape' && selectedEl) {
               selectedEl.style.outline = originalOutline;
+              selectedEl.style.backgroundColor = originalBackground;
               selectedEl.contentEditable = 'false';
               selectedEl = null;
               window.parent.postMessage({ type: 'ESCAPE_PRESSED' }, '*');
@@ -107,6 +147,41 @@ function App() {
               selectedEl.className = e.data.classes;
             }
           });
+
+          // Add visual indicator that the page is ready for editing
+          const indicator = document.createElement('div');
+          indicator.innerHTML = '✏️ Click any element to edit';
+          indicator.style.cssText = \`
+            position: fixed;
+            top: 10px;
+            right: 10px;
+            background: #1f2937;
+            color: white;
+            padding: 8px 12px;
+            border-radius: 6px;
+            font-size: 12px;
+            z-index: 10000;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            animation: fadeIn 0.5s ease-in;
+          \`;
+
+          const style = document.createElement('style');
+          style.textContent = \`
+            @keyframes fadeIn {
+              from { opacity: 0; transform: translateY(-10px); }
+              to { opacity: 1; transform: translateY(0); }
+            }
+          \`;
+          document.head.appendChild(style);
+          document.body.appendChild(indicator);
+
+          // Auto-hide indicator after 3 seconds
+          setTimeout(() => {
+            indicator.style.transition = 'opacity 0.5s';
+            indicator.style.opacity = '0';
+            setTimeout(() => indicator.remove(), 500);
+          }, 3000);
         })();
       `;
 
@@ -189,7 +264,7 @@ function App() {
       {/* Header */}
       <div className="p-4 border-b bg-white">
         <h1 className="text-2xl font-bold mb-4">Edit on Preview</h1>
-        <div className="flex gap-2">
+        <div className="flex gap-2 mb-3">
           <input
             type="url"
             value={url}
@@ -201,6 +276,10 @@ function App() {
             Load Site
           </Button>
         </div>
+        <p className="text-sm text-gray-600">
+          💡 <strong>How to use:</strong> Load a site, then hover over elements to preview and click to select and edit them.
+          Press Escape to stop editing.
+        </p>
       </div>
 
       <div className="flex flex-1 overflow-hidden">

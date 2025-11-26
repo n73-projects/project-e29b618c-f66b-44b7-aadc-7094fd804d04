@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Demo Site for Edit on Preview</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; }
+        .editable-hint { cursor: pointer; transition: all 0.2s ease; }
+        .editable-hint:hover { transform: scale(1.02); }
+    </style>
+</head>
+<body class="bg-gray-50">
+    <div class="min-h-screen">
+        <!-- Hero Section -->
+        <header class="bg-white shadow-sm border-b">
+            <div class="max-w-6xl mx-auto px-6 py-8">
+                <nav class="flex justify-between items-center mb-8">
+                    <div class="text-2xl font-bold text-gray-900 editable-hint">Brand</div>
+                    <div class="space-x-6">
+                        <a href="#" class="text-gray-700 hover:text-gray-900 editable-hint">Home</a>
+                        <a href="#" class="text-gray-700 hover:text-gray-900 editable-hint">About</a>
+                        <a href="#" class="text-gray-700 hover:text-gray-900 editable-hint">Contact</a>
+                    </div>
+                </nav>
+
+                <div class="text-center">
+                    <h1 class="text-5xl font-bold text-gray-900 mb-6 editable-hint">
+                        Welcome to Our Amazing Product
+                    </h1>
+                    <p class="text-xl text-gray-700 mb-8 max-w-3xl mx-auto editable-hint">
+                        This is a sample website that you can edit in real-time. Click on any text to modify it,
+                        or change the styling using Tailwind classes.
+                    </p>
+                    <div class="space-x-4">
+                        <button class="bg-blue-600 text-white px-8 py-3 rounded-lg font-medium hover:bg-blue-700 editable-hint">
+                            Get Started
+                        </button>
+                        <button class="border border-gray-300 text-gray-700 px-8 py-3 rounded-lg font-medium hover:bg-gray-50 editable-hint">
+                            Learn More
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </header>
+
+        <!-- Features Section -->
+        <section class="py-16 bg-white">
+            <div class="max-w-6xl mx-auto px-6">
+                <div class="text-center mb-12">
+                    <h2 class="text-3xl font-bold text-gray-900 mb-4 editable-hint">Key Features</h2>
+                    <p class="text-lg text-gray-600 editable-hint">Everything you need to succeed</p>
+                </div>
+
+                <div class="grid md:grid-cols-3 gap-8">
+                    <div class="text-center p-6 rounded-lg bg-blue-50 border border-blue-100">
+                        <div class="w-12 h-12 bg-blue-500 rounded-lg mx-auto mb-4 flex items-center justify-center">
+                            <span class="text-white text-xl">⚡</span>
+                        </div>
+                        <h3 class="text-xl font-semibold text-gray-900 mb-2 editable-hint">Fast Performance</h3>
+                        <p class="text-gray-700 editable-hint">Lightning fast loading times and smooth interactions</p>
+                    </div>
+
+                    <div class="text-center p-6 rounded-lg bg-green-50 border border-green-100">
+                        <div class="w-12 h-12 bg-green-500 rounded-lg mx-auto mb-4 flex items-center justify-center">
+                            <span class="text-white text-xl">🛡️</span>
+                        </div>
+                        <h3 class="text-xl font-semibold text-gray-900 mb-2 editable-hint">Secure & Safe</h3>
+                        <p class="text-gray-700 editable-hint">Enterprise-grade security to keep your data protected</p>
+                    </div>
+
+                    <div class="text-center p-6 rounded-lg bg-purple-50 border border-purple-100">
+                        <div class="w-12 h-12 bg-purple-500 rounded-lg mx-auto mb-4 flex items-center justify-center">
+                            <span class="text-white text-xl">🎨</span>
+                        </div>
+                        <h3 class="text-xl font-semibold text-gray-900 mb-2 editable-hint">Beautiful Design</h3>
+                        <p class="text-gray-700 editable-hint">Carefully crafted interface that users love</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Content Section -->
+        <section class="py-16 bg-gray-50">
+            <div class="max-w-4xl mx-auto px-6">
+                <div class="bg-white rounded-xl shadow-sm p-8">
+                    <h2 class="text-2xl font-bold text-gray-900 mb-6 editable-hint">Try Editing This Content</h2>
+
+                    <div class="space-y-6">
+                        <p class="text-gray-800 leading-relaxed editable-hint">
+                            This paragraph can be edited by clicking on it. You can change the text content and
+                            also modify the styling using Tailwind CSS classes like <code class="bg-gray-100 px-2 py-1 rounded">text-red-500</code>,
+                            <code class="bg-gray-100 px-2 py-1 rounded">font-bold</code>, or <code class="bg-gray-100 px-2 py-1 rounded">text-center</code>.
+                        </p>
+
+                        <div class="flex flex-wrap gap-2">
+                            <span class="bg-red-100 text-red-800 px-3 py-1 rounded-full text-sm editable-hint">Tag 1</span>
+                            <span class="bg-blue-100 text-blue-800 px-3 py-1 rounded-full text-sm editable-hint">Tag 2</span>
+                            <span class="bg-green-100 text-green-800 px-3 py-1 rounded-full text-sm editable-hint">Tag 3</span>
+                            <span class="bg-yellow-100 text-yellow-800 px-3 py-1 rounded-full text-sm editable-hint">Tag 4</span>
+                        </div>
+
+                        <blockquote class="border-l-4 border-blue-500 pl-4 py-2 bg-blue-50 editable-hint">
+                            <p class="text-gray-800 italic">"This is a quote that you can edit and restyle!"</p>
+                        </blockquote>
+
+                        <div class="grid md:grid-cols-2 gap-4">
+                            <div class="p-4 bg-indigo-50 border border-indigo-200 rounded-lg">
+                                <h4 class="font-semibold text-gray-900 mb-2 editable-hint">Left Box</h4>
+                                <p class="text-gray-700 text-sm editable-hint">Edit this content and try changing colors</p>
+                            </div>
+                            <div class="p-4 bg-emerald-50 border border-emerald-200 rounded-lg">
+                                <h4 class="font-semibold text-gray-900 mb-2 editable-hint">Right Box</h4>
+                                <p class="text-gray-700 text-sm editable-hint">Or modify the layout and spacing</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Footer -->
+        <footer class="bg-gray-900 text-white py-12">
+            <div class="max-w-6xl mx-auto px-6 text-center">
+                <h3 class="text-xl font-semibold mb-4 editable-hint">Ready to get started?</h3>
+                <p class="text-gray-300 mb-6 editable-hint">Try editing this footer content too!</p>
+                <button class="bg-white text-gray-900 px-8 py-3 rounded-lg font-medium hover:bg-gray-100 editable-hint">
+                    Contact Us
+                </button>
+                <div class="mt-8 pt-8 border-t border-gray-700">
+                    <p class="text-gray-400 text-sm editable-hint">&copy; 2024 Demo Company. All rights reserved.</p>
+                </div>
+            </div>
+        </footer>
+    </div>
+</body>
+</html>
